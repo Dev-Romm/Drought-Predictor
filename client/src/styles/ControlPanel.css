@@ -1,0 +1,132 @@
+/* ControlPanel.css - Control panel styles */
+
+.control-panel {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.control-panel h2 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.4rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.control-group label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #34495e;
+}
+
+.control-group select {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 2px solid #dfe6e9;
+  border-radius: 4px;
+  background-color: white;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.control-group select:hover:not(:disabled) {
+  border-color: #3498db;
+}
+
+.control-group select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.control-group select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.predict-button {
+  width: 100%;
+  padding: 0.875rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #3498db;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 0.5rem;
+}
+
+.predict-button:hover:not(:disabled) {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+}
+
+.predict-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.predict-button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.predict-button:disabled::after {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-left: 8px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+.model-info {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #f8f9fa;
+  border-left: 3px solid #3498db;
+  border-radius: 4px;
+}
+
+.model-info small {
+  color: #6c757d;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .control-panel {
+    padding: 1rem;
+  }
+
+  .control-panel h2 {
+    font-size: 1.2rem;
+  }
+
+  .control-group {
+    margin-bottom: 1rem;
+  }
+}

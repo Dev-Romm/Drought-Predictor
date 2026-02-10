@@ -1,0 +1,189 @@
+/* MetricsDisplay.css - Metrics display styles */
+
+.metrics-display {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.metrics-display h2 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.4rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.metric-card {
+  background-color: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.metric-card h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-card .metric-value {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.metric-card .metric-date {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+.metric-card p {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* Specific metric card styles */
+.metric-card:nth-child(1) {
+  border-left: 4px solid #3498db;
+}
+
+.metric-card:nth-child(2) {
+  border-left: 4px solid #e67e22;
+}
+
+.metric-card:nth-child(3) {
+  border-left: 4px solid #9b59b6;
+}
+
+.metric-card:nth-child(4) {
+  border-left: 4px solid #2ecc71;
+}
+
+/* Drought stage specific styling */
+.metric-card:nth-child(4) .drought-badge {
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading state */
+.metrics-display.loading {
+  color: #7f8c8d;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Skeleton loaders for metrics */
+.metric-card.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+  border: 2px solid #e9ecef;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.metric-card.skeleton:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.skeleton-text {
+  width: 60%;
+  height: 16px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.skeleton-value {
+  width: 80%;
+  height: 32px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .metrics-display {
+    padding: 1rem;
+  }
+
+  .metrics-display h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .metric-card {
+    padding: 1rem;
+  }
+
+  .metric-card h3 {
+    font-size: 0.8rem;
+  }
+
+  .metric-card .metric-value,
+  .metric-card p {
+    font-size: 1.4rem;
+  }
+
+  .metric-card .metric-date {
+    font-size: 0.75rem;
+  }
+
+  .metric-card:nth-child(4) .drought-badge {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
