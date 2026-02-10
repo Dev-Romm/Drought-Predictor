@@ -299,6 +299,3 @@ Returns historical drought events for chart overlay.
 
 This project is intended for educational and humanitarian purposes to support pastoralist communities in Turkana County, Kenya.
 
-## Support
-
-For questions or issues, please refer to the project documentation in `.kiro/specs/drought-predictor/`.
