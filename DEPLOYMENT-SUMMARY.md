@@ -216,27 +216,6 @@ vercel --prod
 
 ---
 
-## Cost Estimates (AWS)
-
-### Lambda
-- **Free Tier**: 1M requests/month, 400,000 GB-seconds
-- **After Free Tier**: ~$0.20 per 1M requests
-- **Expected Monthly Cost**: $0-5 (for low-medium traffic)
-
-### API Gateway
-- **Free Tier**: 1M requests/month (first 12 months)
-- **After Free Tier**: $1.00 per million requests
-- **Expected Monthly Cost**: $0-2
-
-### ECR (Container Registry)
-- **Storage**: $0.10 per GB/month
-- **Image Size**: 0.45 GB
-- **Expected Monthly Cost**: $0.05
-
-**Total Estimated Monthly Cost**: $0-7 (very low for a production API)
-
----
-
 ## Monitoring & Logs
 
 ### CloudWatch Logs
