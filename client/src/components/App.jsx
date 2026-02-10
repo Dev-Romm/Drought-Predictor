@@ -280,6 +280,15 @@ function App() {
           </>
         )}
       </main>
+
+      <footer className="app-footer">
+        <div className="footer-content">
+          <p>© 2026 Drought Predictor - Turkana County</p>
+          <p className="footer-credits">
+            Developed by <strong>Paul Thuo</strong> & <strong>Fleria Odindo</strong>
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
