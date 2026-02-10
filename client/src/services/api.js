@@ -41,15 +41,15 @@ export async function fetchHistoricalData() {
 
 /**
  * Fetch prediction from the backend
- * @param {number} horizon - Forecast horizon in weeks (2, 4, or 6)
+ * @param {number} horizon - Forecast horizon in weeks (2, 4, 6, 8, 10, or 12)
  * @returns {Promise<Object>} Prediction response with forecast data, drought alert, and insights
  * @throws {Error} Network, validation, or server error
  */
 export async function fetchPrediction(horizon) {
   try {
     // Validate parameters
-    if (![2, 4, 6].includes(horizon)) {
-      throw new Error(`Invalid forecast horizon: ${horizon}. Must be 2, 4, or 6 weeks.`);
+    if (![2, 4, 6, 8, 10, 12].includes(horizon)) {
+      throw new Error(`Invalid forecast horizon: ${horizon}. Must be 2, 4, 6, 8, 10, or 12 weeks.`);
     }
 
     const response = await apiClient.post('/api/predict', {

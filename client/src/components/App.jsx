@@ -225,7 +225,7 @@ function App() {
               <div className="info-card">
                 <div className="info-icon">🔮</div>
                 <h3>Forecast</h3>
-                <p>Generate predictions for 2, 4, or 6 weeks ahead using Prophet forecasting</p>
+                <p>Generate predictions for 2 to 12 weeks ahead using Prophet forecasting</p>
               </div>
               
               <div className="info-card">
@@ -238,7 +238,7 @@ function App() {
             <div className="how-to-use">
               <h3>How to Use</h3>
               <ol>
-                <li><strong>Select Forecast Horizon:</strong> Choose how far ahead you want to predict (2, 4, or 6 weeks)</li>
+                <li><strong>Select Forecast Horizon:</strong> Choose how far ahead you want to predict (2 to 12 weeks)</li>
                 <li><strong>Generate Prediction:</strong> Click the "Predict" button to generate a forecast</li>
                 <li><strong>Review Results:</strong> Examine the chart, metrics, and insights for drought risk assessment</li>
               </ol>

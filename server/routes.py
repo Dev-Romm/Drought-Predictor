@@ -21,14 +21,14 @@ from insight_generator import InsightGenerator
 
 class PredictionRequest(BaseModel):
     """Request model for prediction endpoint."""
-    horizon: int = Field(..., description="Forecast horizon in weeks: 2, 4, or 6")
+    horizon: int = Field(..., description="Forecast horizon in weeks: 2, 4, 6, 8, 10, or 12")
     
     @field_validator('horizon')
     @classmethod
     def validate_horizon(cls, v: int) -> int:
         """Validate forecast horizon."""
-        if v not in [2, 4, 6]:
-            raise ValueError("Horizon must be 2, 4, or 6 weeks")
+        if v not in [2, 4, 6, 8, 10, 12]:
+            raise ValueError("Horizon must be 2, 4, 6, 8, 10, or 12 weeks")
         return v
 
 

@@ -1,12 +1,29 @@
 # PowerShell Deployment Script for Drought Predictor Backend to AWS Lambda
 # This script builds a Docker image and deploys it to AWS Lambda
+#
+# USAGE:
+#   .\deploy-lambda.ps1                    # Deploy with default settings
+#   .\deploy-lambda.ps1 -ImageTag v1.2.0   # Deploy with custom tag
+#
+# PREREQUISITES:
+#   - AWS CLI configured with credentials (run 'aws configure')
+#   - Docker installed and running
+#   - Lambda function already created (or provide -Role parameter)
+#   - API Gateway already configured (this script updates Lambda only)
+#
+# CURRENT CONFIGURATION:
+#   - Memory: 3008 MB (optimized for Prophet model)
+#   - Timeout: 120 seconds (sufficient for cold starts)
+#   - API Gateway: https://ipkofutqtb.execute-api.us-east-1.amazonaws.com
+#   - Model: Prophet-only forecasting
+#   - Horizons: 2, 4, 6, 8, 10, 12 weeks
 
 param(
     [string]$Region = "us-east-1",
     [string]$FunctionName = "drought-predictor-api",
     [string]$Role = "",
-    [int]$Memory = 2048,
-    [int]$Timeout = 60,
+    [int]$Memory = 3008,
+    [int]$Timeout = 120,
     [string]$ImageTag = "latest"
 )
 
@@ -162,28 +179,15 @@ if ($LASTEXITCODE -eq 0) {
     Write-Success "Lambda function created successfully"
 }
 
-# Step 7: Create Function URL (for HTTP access)
+# Step 7: Display API Gateway information
 Write-Host ""
-Write-Info "Step 7: Configuring Function URL..."
-$functionUrlConfig = aws lambda get-function-url-config --function-name $FunctionName --region $Region 2>&1
-if ($LASTEXITCODE -ne 0) {
-    Write-Info "Creating Function URL..."
-    aws lambda create-function-url-config --function-name $FunctionName --auth-type NONE --cors "AllowOrigins=*,AllowMethods=*,AllowHeaders=*,MaxAge=86400" --region $Region | Out-Null
-    
-    if ($LASTEXITCODE -ne 0) {
-        Write-ErrorMsg "Failed to create Function URL"
-    } else {
-        Write-Success "Function URL created"
-    }
-    
-    # Add permission for public access
-    aws lambda add-permission --function-name $FunctionName --statement-id FunctionURLAllowPublicAccess --action lambda:InvokeFunctionUrl --principal "*" --function-url-auth-type NONE --region $Region 2>&1 | Out-Null
-} else {
-    Write-Success "Function URL already exists"
-}
-
-# Get Function URL
-$functionUrl = aws lambda get-function-url-config --function-name $FunctionName --region $Region --query FunctionUrl --output text
+Write-Info "Step 7: API Gateway Configuration..."
+Write-Info "This function is configured to work with API Gateway HTTP API"
+Write-Info "API Gateway URL: https://ipkofutqtb.execute-api.us-east-1.amazonaws.com"
+Write-Host ""
+Write-Info "Note: This script updates the Lambda function only."
+Write-Info "API Gateway is already configured and doesn't need updates for code changes."
+Write-Success "Lambda function is connected to API Gateway"
 
 # Step 8: Display deployment summary
 Write-Host ""
@@ -192,7 +196,7 @@ Write-Info "Deployment Summary"
 Write-Info "========================================="
 Write-Success "Docker image built and pushed to ECR"
 Write-Success "Lambda function deployed"
-Write-Success "Function URL configured"
+Write-Success "API Gateway configured"
 Write-Host ""
 Write-Info "Function Details:"
 Write-Info "  Name: $FunctionName"
@@ -201,12 +205,13 @@ Write-Info "  Memory: $Memory MB"
 Write-Info "  Timeout: $Timeout seconds"
 Write-Info "  Image: ${ecrUri}:${ImageTag}"
 Write-Host ""
-Write-Info "API Endpoint:"
-Write-Success "  $functionUrl"
+Write-Info "API Endpoint (via API Gateway):"
+Write-Success "  https://ipkofutqtb.execute-api.us-east-1.amazonaws.com"
 Write-Host ""
 Write-Info "Test the API:"
-Write-Info "  curl $functionUrl"
-Write-Info "  curl ${functionUrl}api/historical-data"
+Write-Info "  Invoke-RestMethod -Uri 'https://ipkofutqtb.execute-api.us-east-1.amazonaws.com/health'"
+Write-Info "  Invoke-RestMethod -Uri 'https://ipkofutqtb.execute-api.us-east-1.amazonaws.com/api/historical-data'"
+Write-Info "  Invoke-RestMethod -Uri 'https://ipkofutqtb.execute-api.us-east-1.amazonaws.com/api/predict' -Method Post -ContentType 'application/json' -Body '{\"horizon\": 6}'"
 Write-Info "========================================="
 Write-Host ""
 

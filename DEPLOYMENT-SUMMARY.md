@@ -1,10 +1,10 @@
 # Drought Predictor - Deployment Summary
 
-## Date: February 9, 2026
+## Date: February 10, 2026
 
 ## Overview
 
-Successfully deployed the Drought Predictor application with Prophet-only forecasting to AWS Lambda and prepared for Vercel frontend deployment.
+Successfully deployed the Drought Predictor application with Prophet-only forecasting to AWS Lambda and prepared for Vercel frontend deployment. Extended forecast horizons to support up to 12 weeks ahead.
 
 ---
 
@@ -102,6 +102,8 @@ POST /api/predict
 }
 ```
 
+**Supported Horizons**: 2, 4, 6, 8, 10, or 12 weeks
+
 ### Response Format (Unchanged)
 ```json
 {
@@ -125,6 +127,7 @@ POST /api/predict
 ✅ Historical data: `GET /api/historical-data` - Returns 215 data points
 ✅ Drought events: `GET /api/drought-events` - Returns 3 events
 ✅ Predictions: `POST /api/predict` - Returns forecast with Prophet
+✅ All horizons: 2, 4, 6, 8, 10, and 12 weeks tested and working
 ✅ CORS: Properly configured for cross-origin requests
 ✅ Cold start: ~7-8 seconds (acceptable for Lambda)
 ✅ Warm response: ~100-200ms
@@ -145,6 +148,13 @@ POST /api/predict
 3. ✅ Updated Lambda function with new image
 4. ✅ Verified API Gateway integration
 5. ✅ Tested all endpoints
+
+**For Future Updates**: Use the automated deployment script:
+```powershell
+cd server
+.\deploy-lambda.ps1
+```
+See `server/DEPLOYMENT.md` for detailed deployment instructions.
 
 ### Frontend (Ready for Deployment)
 1. ✅ Updated code to use Prophet-only
@@ -317,6 +327,27 @@ aws lambda update-function-code \
 - **CORS errors**: Verify API Gateway CORS configuration
 - **Slow predictions**: Check Lambda memory allocation
 - **Build failures**: Verify dependencies in requirements.txt
+
+---
+
+## Recent Updates (February 10, 2026)
+
+### Extended Forecast Horizons
+- **Feature**: Extended forecast horizons from 6 weeks to 12 weeks
+- **Supported Horizons**: 2, 4, 6, 8, 10, and 12 weeks
+- **Changes**:
+  - Updated backend validation in `server/routes.py`
+  - Updated client dropdown in `client/src/components/ControlPanel.jsx`
+  - Updated API validation in `client/src/services/api.js`
+  - Updated welcome section to reflect new capabilities
+- **Deployment**:
+  - Docker image rebuilt and pushed to ECR
+  - Lambda function updated with new image (sha256:6e26d840b00b22a67dd8897d55e53614213ccc2158c72f9a339c2c57040d4eb9)
+  - All horizons tested and verified working
+- **Testing Results**:
+  - ✅ 8 weeks: Returns 4 biweekly predictions
+  - ✅ 10 weeks: Returns 5 biweekly predictions
+  - ✅ 12 weeks: Returns 6 biweekly predictions
 
 ---
 
